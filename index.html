@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Goldfishing">
+<meta name="theme-color" content="#0a0a0f">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Better Goldfishing V2.1</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- TOP: Step tracker -->
+  <div class="top-section">
+    <div class="step-header">
+      <div class="step-badge" id="stepBadge">STEP 1 / 6</div>
+      <div class="step-progress" id="stepProgress"></div>
+      <div class="turn-badge" id="turnBadge">TURN 1</div>
+    </div>
+    <div class="step-title" id="stepTitle"></div>
+    <div class="step-body"  id="stepBody"></div>
+    <button class="next-btn" onclick="nextStep()"><span id="nextBtnText">NEXT STEP →</span></button>
+  </div>
+
+  <!-- MID: Stats -->
+  <div class="mid-section">
+
+    <div class="stats-row">
+      <div class="stat-card life">
+        <div class="stat-label">Your Life</div>
+        <div class="stat-value" id="lifeVal">40</div>
+        <div class="stat-controls">
+          <button class="ctrl-btn" onclick="adjustStat('life',-5)">−5</button>
+          <button class="ctrl-btn" onclick="adjustStat('life',-1)">−1</button>
+          <button class="ctrl-btn" onclick="adjustStat('life', 1)">+1</button>
+          <button class="ctrl-btn" onclick="adjustStat('life', 5)">+5</button>
+        </div>
+        <div class="life-loss-preview" id="lifeLossPreview"></div>
+      </div>
+
+      <div class="stat-card time">
+        <div class="stat-label">Time Counters</div>
+        <div class="stat-value" id="timeVal">0</div>
+        <div class="stat-controls">
+          <button class="ctrl-btn" onclick="adjustStat('time',-2)">−2</button>
+          <button class="ctrl-btn" onclick="adjustStat('time',-1)">−1</button>
+          <button class="ctrl-btn" onclick="adjustStat('time', 1)">+1</button>
+          <button class="ctrl-btn" onclick="adjustStat('time', 2)">+2</button>
+        </div>
+      </div>
+
+      <div class="stat-card opp">
+        <div class="stat-label">Opp Life Pool</div>
+        <div class="stat-value" id="oppVal">60</div>
+        <div class="stat-controls">
+          <button class="ctrl-btn" onclick="adjustOpp(-5)">−5</button>
+          <button class="ctrl-btn" onclick="adjustOpp(-1)">−1</button>
+          <button class="ctrl-btn" onclick="adjustOpp( 1)">+1</button>
+          <button class="ctrl-btn" onclick="adjustOpp( 5)">+5</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="opp-mode-pill three" id="oppModePill">
+      ⚔ SIMULATING 3 OPPONENTS — ABOVE 30 LIFE
+    </div>
+
+    <div>
+      <div class="win-bar-wrap">
+        <div class="win-bar-fill" id="winBarFill"></div>
+        <div class="win-bar-mid"></div>
+      </div>
+      <div class="win-bar-label">
+        <span>0</span>
+        <span id="winBarLabel">60 remaining</span>
+        <span>60</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOT: Dice -->
+  <div class="bot-section">
+
+    <button class="dice-btn" id="diceBtn" onclick="rollDice()">
+      <span id="diceDisplay">⚄</span>
+      <span class="dice-label-small">TAP TO ROLL</span>
+    </button>
+
+    <div class="result-card" id="resultCard">
+      <div class="result-placeholder" id="resultPlaceholder">Roll the dice after losing life each turn</div>
+      <div style="display:none" id="resultContent">
+        <div class="result-roll" id="resultRoll"></div>
+        <div class="result-text" id="resultText"></div>
+      </div>
+    </div>
+
+    <button class="counter-btn" id="counterBtn" onclick="counterEffect()">
+      ⚔ COUNTER THIS EFFECT (NO TIME COUNTER REMOVED)
+    </button>
+
+  </div>
+
+</div>
+
+<!-- Game Over Modal -->
+<div class="overlay" id="gameOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Game Over</div>
+      <div class="modal-sub" id="gameOverSub"></div>
+    </div>
+    <div class="modal-body" id="gameLog"></div>
+    <div class="modal-footer">
+      <button class="play-again-btn" onclick="resetGame()">⟳ PLAY AGAIN</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
